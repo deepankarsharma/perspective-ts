@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "name": "@jpmorganchase/perspective-ts",
+  "version": "0.1.1",
+  "scripts": {
+    "build": "npm run copy:wasm && npm run copy:emjs && npm run build:modules",
+    "build:modules": "webpack --color --config webpack.config.js",
+    "copy:emjs": "cp -r node_modules/@jpmorganchase/perspective/obj/psp.async.js src",
+    "copy:wasm": "cp -r node_modules/@jpmorganchase/perspective/obj/psp.async.wasm build",
+    "clean": "rimraf build"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@jpmorganchase/perspective": "^0.2.2"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.2",
+    "ts-loader": "^3.5.0",
+    "typescript": "^2.9.2",
+    "webpack": "^3.5.6",
+    "worker-loader": "^1.1.1",
+    "wrap-loader": "^0.2.0"
+  }
+}
