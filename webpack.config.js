@@ -33,7 +33,8 @@ module.exports = {
         loader: "wrap-loader",
         options: {
           before: ";var window = window || {};exports.load_perspective = function(Module) {",
-          after: ";return Module;}"
+          //after: ";return Module;}"
+          after: ";Module.preRun.push(function() { ENV.PSP_LOG_PROGRESS = '1'; }); return Module;}"
         }
       }
     ],
