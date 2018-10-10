@@ -24,11 +24,27 @@ class WorkerHost {
     this._ctx = ctx;
 
     this._ctx.addEventListener("message", this.process, false);
-    Module.onRuntimeInitialized = () => this.post("perspective loaded in worker");
+    Module.onRuntimeInitialized = () => {
+      this._pool = new Module.t_pool({
+        _update_callback: this.poolUpdate
+      });
+
+      // Start updating pool
+      setTimeout(() => this.processPool(), this._timeout);
+    }
   }
 
   process(ev: MessageEvent) {
     console.log("Main sent", ev.data);
+  }
+
+  processPool() {
+    this._pool.process();
+    setTimeout(() => this.processPool(), this._timeout);
+  }
+
+  poolUpdate() {
+    console.log("Pool updated");
   }
 
   post(msg: any) {
@@ -36,6 +52,9 @@ class WorkerHost {
   }
 
   private _ctx: Worker;
+
+  private _pool: any;
+  private _timeout: number = 500;
 }
 
 //pool = new __MODULE__.t_pool({_update_callback: function() {}});

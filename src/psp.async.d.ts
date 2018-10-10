@@ -10,8 +10,12 @@ declare namespace Perspective {
     wasmJSMethod?: WASMJSMethod,
     printErr?: Function,
     print?: Function,
-    onRuntimeInitialized?: Function;
-    }
+  }
 
-  function load_perspective(module: Module): Module;
+  interface PerspectiveModule {
+    t_pool: any;
+    onRuntimeInitialized?: Function;
+  }
+
+  function load_perspective(module: Module): PerspectiveModule;
 };
